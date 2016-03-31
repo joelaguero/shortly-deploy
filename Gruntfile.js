@@ -60,7 +60,7 @@ module.exports = function(grunt) {
           force: true
         },
         files: {
-          src: ['public']
+          src: ['public', 'app', 'db', 'Gruntfile.js']
         }
       }
     },
@@ -68,10 +68,13 @@ module.exports = function(grunt) {
     gitcommit: {
       your_target: {
         options: {
-          // Target-specific options go here. 
+          cwd: '.',
+          message: 'Update production repo',
+          noVerify: true
         },
         files: {
             // Specify the files you want to commit 
+            src: ['public', 'app', 'db', 'Gruntfile.js']
         }
       }
     },
@@ -137,7 +140,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
-    'gitadd'
+    'gitadd', 'gitcommit'
   ]);
 
 
