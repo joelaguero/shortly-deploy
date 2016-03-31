@@ -82,7 +82,8 @@ module.exports = function(grunt) {
     gitpush: {
       your_target: {
         options: {
-          // Target-specific options go here. 
+          remote: 'live',
+          branch: 'master'
         }
       }
     }
@@ -140,7 +141,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
-    'gitadd', 'gitcommit'
+    'gitadd', 'gitcommit', 'gitpush'
   ]);
 
 
