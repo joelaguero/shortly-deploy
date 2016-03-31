@@ -60,15 +60,28 @@ module.exports = function(grunt) {
           force: true
         },
         files: {
-          src: ['test.txt']
+          src: ['public']
         }
       }
     },
 
     gitcommit: {
+      your_target: {
+        options: {
+          // Target-specific options go here. 
+        },
+        files: {
+            // Specify the files you want to commit 
+        }
+      }
     },
 
     gitpush: {
+      your_target: {
+        options: {
+          // Target-specific options go here. 
+        }
+      }
     }
   });
 
@@ -124,6 +137,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
+    'gitadd'
   ]);
 
 
