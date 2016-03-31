@@ -70,7 +70,7 @@ module.exports = function(grunt) {
           force: true
         },
         files: {
-          src: ['public', 'app', 'db', 'Gruntfile.js']
+          src: ['public']
         }
       }
     },
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
         },
         files: {
             // Specify the files you want to commit 
-            src: ['public', 'app', 'db', 'Gruntfile.js']
+            src: ['public']
         }
       }
     },
