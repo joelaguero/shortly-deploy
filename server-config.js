@@ -1,12 +1,6 @@
 var express = require('express');
 var partials = require('express-partials');
 var util = require('./lib/utility');
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017', function(err) {
-  if (err) { console.log(err); }
-  console.log('Connected to MongoDB database');
-});
 
 var handler = require('./lib/request-handler');
 

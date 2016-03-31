@@ -1,4 +1,20 @@
 var path = require('path');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017', function(err) {
+  if (err) { console.log(err); }
+  console.log('Connected to MongoDB database');
+});
+
+var Schema = mongoose.Schema;
+
+// Create urls schema
+
+
+// Create user schema
+
+
+// Knex and db can be removed eventually.
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
