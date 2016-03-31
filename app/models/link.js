@@ -1,4 +1,5 @@
 var db = require('../config.js');
+var crypto = require('crypto');
 
 // Create url schema
 var urlSchema = new db.Schema({
@@ -11,30 +12,19 @@ var urlSchema = new db.Schema({
   timestamps: { type: Date, default: Date.now }
 }); 
 
+urlSchema.pre('save', function(next) {
+  shortenUrl();
+});
+
+var shortenUrl = function() {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(this.get('url'));
+  this.set('code', shasum.digest('hex').slice(0, 5));  
+};
+
 urlSchema.plugin(db.autoIncrement.plugin, 'Link');
 var Link = db.connection.model('Link', urlSchema);
 
 module.exports = Link;
  
 
-// Old version of link.js
-
-// var db = require('../config');
-// var crypto = require('crypto');
-
-// var Link = db.Model.extend({
-//   tableName: 'urls',
-//   hasTimestamps: true,
-//   defaults: {
-//     visits: 0
-//   },
-//   initialize: function() {
-//     this.on('creating', function(model, attrs, options) {
-//       var shasum = crypto.createHash('sha1');
-//       shasum.update(model.get('url'));
-//       model.set('code', shasum.digest('hex').slice(0, 5));
-//     });
-//   }
-// });
-
-// module.exports = Link;
