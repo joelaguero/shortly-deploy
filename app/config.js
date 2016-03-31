@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 
-mongoose.connect('mongodb://localhost:27017', function(err) {
+var connection = mongoose.createConnection('mongodb://localhost:27017', function(err) {
   if (err) { console.log(err); }
   console.log('Connected to MongoDB database');
 });
@@ -27,8 +27,11 @@ var userSchema = new Schema({
   timestamps: { type: Date, default: Date.now }
 });
 
-var User = mongoose.model('User', userSchema);
-var Link = mongoose.model('Link', urlSchema);
+userSchema.plugin(autoIncrement.plugin, 'User');
+urlSchema.plugin(autoIncrement.plugin, 'Link');
+
+var User = connection.model('User', userSchema);
+var Link = connection.model('Link', urlSchema);
  
 module.exports = {
   User: User,
