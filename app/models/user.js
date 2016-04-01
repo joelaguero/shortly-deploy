@@ -5,13 +5,14 @@ var Promise = require('bluebird');
 // Create user schema
 var userSchema = new db.Schema({
   id: Number,
-  userName: String,
+  username: String,
   password: String,
   timestamps: { type: Date, default: Date.now }
 });
 
 userSchema.pre('save', function(next) {
   hashPassword();
+  next();
 });
 
 var hashPassword = function() {

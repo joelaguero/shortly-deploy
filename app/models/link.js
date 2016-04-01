@@ -1,8 +1,9 @@
+var mongoose = require('mongoose');
 var db = require('../config.js');
 var crypto = require('crypto');
 
 // Create url schema
-var urlSchema = new db.Schema({
+var urlSchema = new mongoose.Schema({
   id: Number,
   url: String,
   baseUrl: String,
@@ -13,18 +14,17 @@ var urlSchema = new db.Schema({
 }); 
 
 urlSchema.pre('save', function(next) {
-  shortenUrl();
+  shortenUrl(this);
+  next();
 });
 
-var shortenUrl = function() {
+var shortenUrl = function(model) {
   var shasum = crypto.createHash('sha1');
-  shasum.update(this.get('url'));
-  this.set('code', shasum.digest('hex').slice(0, 5));  
+  shasum.update(model.get('url'));
+  this.code = shasum.digest('hex').slice(0, 5);
 };
 
 urlSchema.plugin(db.autoIncrement.plugin, 'Link');
-var Link = db.connection.model('Link', urlSchema);
+var Link = mongoose.model('Link', urlSchema);
 
 module.exports = Link;
- 
-
